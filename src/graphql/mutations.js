@@ -19,18 +19,8 @@ export const login = `mutation Login($phone: String) {
   }
 }
 `;
-export const initTransaction = `mutation InitTransaction(
-  $customerId: String
-  $vendorId: String
-  $agentId: String
-  $amount: Float
-) {
-  initTransaction(
-    customerId: $customerId
-    vendorId: $vendorId
-    agentId: $agentId
-    amount: $amount
-  ) {
+export const initTransaction = `mutation InitTransaction($input: inputTransaction) {
+  initTransaction(input: $input) {
     id
     temenos_reference
     vendorId

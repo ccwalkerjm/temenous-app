@@ -13,7 +13,7 @@ export const listCustomers = `query ListCustomers {
 export const listVendors = `query ListVendors {
   listVendors {
     id
-    Name
+    name
   }
 }
 `;

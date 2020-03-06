@@ -17,12 +17,13 @@
       </v-ons-list-item>
       <v-ons-list-item>
         <div class="center">
-          <select v-model="input.vendor" class="select-input select-input--material">
+          <select v-model="input.vendorId" class="select-input select-input--material">
             <option
               v-for="item in vendorOptions"
-              :key="'vendor'+item.value"
+              :key="'vendorId'+item.value"
               :value="item.value"
-            >{{item.name}}</option>
+              :disabled="item.value===null"
+            >{{item.text}}</option>
           </select>
         </div>
       </v-ons-list-item>
@@ -43,16 +44,16 @@ export default {
   name: "Customer",
   data() {
     return {
+      vendors: [],
       input: {
-        amount: 0,
-        vendor: null,
-        vendors: []
+        amount: 0.00,
+        vendorId: null
       }
     };
   },
   computed: {
     vendorOptions() {
-      const options = this.vendors.map(x => ({
+      const options = (this.vendors || []).map(x => ({
         value: x.id,
         text: x.name
       }));
@@ -65,11 +66,11 @@ export default {
   },
   async mounted() {
     try {
-      ({
-        data: { listVendors: this.vendors }
-      } = await this.$Amplify.API.graphql(
+      const { data } = await this.$Amplify.API.graphql(
         this.$Amplify.graphqlOperation(queries.listVendors)
-      ));
+      );
+      console.log("vendors data", data);
+      this.vendors = data.listVendors;
       console.log("vendors", this.vendors);
     } catch (err) {
       console.log("err", err);
@@ -80,11 +81,14 @@ export default {
   methods: {
     async initTransaction() {
       try {
+        const input = this.input;
+        input.amount = parseFloat(input.amount);
+        console.log("initTransaction input", input);
         const {
           data: { initTransaction }
         } = await this.$Amplify.API.graphql(
           this.$Amplify.graphqlOperation(mutations.initTransaction, {
-            ...this.input
+            input
           })
         );
         console.log("initTransaction", initTransaction);
