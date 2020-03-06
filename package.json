@@ -9,11 +9,15 @@
   },
   "dependencies": {
     "core-js": "^3.6.4",
-    "vue": "^2.6.11"
+    "onsenui": "^2.10.10",
+    "register-service-worker": "^1.6.2",
+    "vue": "^2.6.11",
+    "vue-onsenui": "^2.6.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.2.0",
     "@vue/cli-plugin-eslint": "^4.2.0",
+    "@vue/cli-plugin-pwa": "^4.2.3",
     "@vue/cli-service": "^4.2.0",
     "babel-eslint": "^10.0.3",
     "eslint": "^6.7.2",
@@ -21,6 +25,12 @@
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
+    "globals": {
+      "window": true,
+      "workbox": true,
+      "clients": true,
+      "pushCredentials": true
+    },
     "root": true,
     "env": {
       "node": true
@@ -32,7 +42,9 @@
     "parserOptions": {
       "parser": "babel-eslint"
     },
-    "rules": {}
+    "rules": {
+      "no-console": "off"
+    }
   },
   "browserslist": [
     "> 1%",
