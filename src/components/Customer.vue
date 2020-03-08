@@ -6,7 +6,7 @@
           <v-ons-icon icon="md-menu" size="1x"></v-ons-icon>
         </v-ons-toolbar-button>
       </div>
-      <div class="center">Customer</div>
+      <div class="center">Cash Payment</div>
     </v-ons-toolbar>
     <v-ons-list>
       <v-ons-list-header>Amount</v-ons-list-header>

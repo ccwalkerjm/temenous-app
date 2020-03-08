@@ -1,6 +1,10 @@
 <template id="main-page">
   <div>
-    <v-ons-splitter>
+    <v-ons-modal :visible="!this.$store.state.user">
+      <authenticator></authenticator>
+    </v-ons-modal>
+
+    <v-ons-splitter v-if="!!this.$store.state.user">
       <v-ons-splitter-side width="300px" collapse side="left" :open.sync="openSide">
         <v-ons-page>
           <v-ons-card>
@@ -19,10 +23,7 @@
                   @click="currentPage = 'Agent'; openSide = false"
                   modifier="chevron"
                 >
-                  <div class="left">
-                    <v-ons-icon style="color:blue" icon="fa-walking"></v-ons-icon>
-                  </div>
-                  <div class="center">Agent</div>
+                  <div class="center">Agent-Commit</div>
                 </v-ons-list-item>
 
                 <v-ons-list-item
@@ -30,10 +31,22 @@
                   @click="currentPage = 'Customer'; openSide = false"
                   modifier="chevron"
                 >
-                  <div class="left">
-                    <v-ons-icon style="color:red" icon="fa-running"></v-ons-icon>
-                  </div>
-                  <div class="center">Customer</div>
+                  <div class="center">Customer-Purchase</div>
+                </v-ons-list-item>
+
+                <v-ons-list-item
+                  tappable
+                  @click="currentPage = 'Vendors'; openSide = false"
+                  modifier="chevron"
+                >
+                  <div class="center">Vendors</div>
+                </v-ons-list-item>
+                <v-ons-list-item
+                  tappable
+                  @click="currentPage = 'Transactions'; openSide = false"
+                  modifier="chevron"
+                >
+                  <div class="center">Transactions</div>
                 </v-ons-list-item>
               </v-ons-list>
               <div style="text-align:center; margin-top:20px">
@@ -62,13 +75,18 @@
 
 <script>
 import Agent from "./components/Agent.vue";
+import Authenticator from "./components/Authenticator.vue";
 import Customer from "./components/Customer.vue";
+import Vendors from "./components/Vendors.vue";
+import Transactions from "./components/Transactions.vue";
 
 export default {
   name: "app",
   components: {
     Customer,
-
+    Vendors,
+    Transactions,
+    Authenticator,
     Agent
   },
   data() {

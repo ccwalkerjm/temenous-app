@@ -1,32 +1,48 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import bookNames from "@/bible-data/Books.json";
+//import * as mutations from "@/graphql/mutations";
 
 Vue.use(Vuex);
 
+const customer = {
+  id: "18767922716",
+  name: "Courtne Walker",
+  phone: "18767922716",
+};
+
 export const store = new Vuex.Store({
   state: {
-    bookNames,
-    book: null
+    user: null
   },
   getters: {
-    book: state => state.book,
-    bookNames: state => state.bookNames
+    username: state => state.user.id
   },
   mutations: {
-    setBook(state, book) {
-      console.log("mutation: book", book);
-      state.book = book;
+    setUser(state, user) {
+      console.log("mutation: user", user);
+      state.user = user;
     }
   },
   actions: {
-    loadBook(context, book_idx) {
-      const bookName = bookNames[book_idx];
-      const fileName = bookName.replace(/\s/g, "") + ".json";
-      import("@/bible-data/" + fileName).then(book => {
-        console.log("action: book", book);
-        context.commit("setBook", book);
-      });
+    login(context, phone) {
+      /* this.$Amplify.graphqlOperation(mutations.login, {
+        phone
+      }).then((data) => {
+        context.commit("setUser", data.login);
+      }); */
+      if(phone === customer.phone)  context.commit("setUser", customer);
+    },
+
+    register(context, data) {
+      console.log("data", data);
+      /* this.$Amplify.graphqlOperation(mutations.registerCustomer, {
+        name: data.name, phone: data.phone
+      }).then((data) => {
+        context.commit("setUser", data.registerCustomer);
+      }); */
+      context.commit("setUser", customer);
     }
   }
+
+
 });
