@@ -1,10 +1,10 @@
 <template id="main-page">
   <div>
-    <v-ons-modal :visible="!this.$store.state.user">
+    <!-- <v-ons-modal :visible="!this.$store.state.user">
       <authenticator></authenticator>
-    </v-ons-modal>
+    </v-ons-modal> -->
 
-    <v-ons-splitter v-if="!!this.$store.state.user">
+    <v-ons-splitter>
       <v-ons-splitter-side width="300px" collapse side="left" :open.sync="openSide">
         <v-ons-page>
           <v-ons-card>
